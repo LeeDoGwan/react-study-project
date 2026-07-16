@@ -10,8 +10,13 @@ function Terminal() {
     const handleSubmit = (event) => {
         //ldg0819 form 제출 시 새로고침 방지
         event.preventDefault();
+        let lineTxt;
+        if (phase === 'password')
+            lineTxt = '*'.repeat(input.trim().length);
+        else
+            lineTxt = input.trim();
+        const value = lineTxt;
 
-        const value = input.trim();
 
         if (!value) {
             return;
@@ -21,12 +26,16 @@ function Terminal() {
             // 아이디 처리
             case 'username':
                 setUsername(value);
-                setPhase('password');
+                if (value === 'lee'){
+                    setPhase('password');
+                }
                 break;
 
             case 'password':
-                if (value === 'lee') {
+                if (value === '1234') {
+
                     setPhase('shell');
+
                 } else {
                     setUsername('');
                     setPhase('username');
@@ -40,7 +49,6 @@ function Terminal() {
             default:
                 break;
         }
-
         setLines((previousLines) => [
             ...previousLines,
             value,
@@ -72,10 +80,13 @@ function Terminal() {
                 <span>{getPrompt()}</span>
                 <input
                     type={
-                        phase === 'password' ? 'password' : 'text'
+                        phase === 'password'
+                            ? 'password'
+                            : 'text'
                     }
                     value={input}
                     onChange={(event) => {
+
                         setInput(event.target.value);
                     }}
                 />
