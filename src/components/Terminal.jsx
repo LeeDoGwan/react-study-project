@@ -1,15 +1,22 @@
-import {useRef, useState} from 'react';
+import {useCallback, useRef, useState} from 'react';
 import './Terminal.css';
 import TypeItRenderer from "./TypeItRenderer.jsx";
 import { executeCommand } from '../commands/commands.js';
+import {
+    useLocation,
+    useNavigate,
+} from 'react-router';
 
 const SHELL_TYPE_OPTIONS = {
     speed: 5,
     cursor: false,
 };
 
-
 function Terminal() {
+    //ldg0819 routes
+    const navigate = useNavigate();
+    const location = useLocation();
+
     const [input, setInput] = useState('');
 
     const [phase, setPhase] = useState('username');
@@ -18,6 +25,24 @@ function Terminal() {
 
     const outputRef = useRef(null);
     const inputRef = useRef(null);
+
+    const handleTypingComplete = useCallback(
+        (route) => {
+            console.log(1)
+            if (!route) {
+                return;
+            }
+
+            if (phase === 'username'){
+                navigate(route, {
+                    state: {
+                        backgroundLocation: location,
+                    },
+                });
+            }
+        },
+        [navigate, location],
+    );
 
     const handleSubmit = (event) => {
         //ldg0819 form 제출 시 새로고침 방지
@@ -83,6 +108,7 @@ function Terminal() {
             id: crypto.randomUUID(),
             command: `${username}@myHome:~$ ${value}`,
             output: result.output,
+            route: result.route ?? null,
         };
         setEntries((previousEntries) => [
             ...previousEntries,
@@ -156,8 +182,9 @@ function Terminal() {
                         output={entry.output}
 
                         className="terminal-entry"
-                        className="terminal-line"
                         options={SHELL_TYPE_OPTIONS}
+                        // completeValue={phase}
+                        // onComplete={handleTypingComplete}
                     />
                 ))}
             </div>

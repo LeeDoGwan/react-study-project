@@ -1,0 +1,125 @@
+.Login {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 100vh;
+    padding: 24px;
+
+    background: #101010;
+    color: #d3d7cf;
+
+    font-family:
+            "JetBrains Mono",
+            "D2Coding",
+            "Consolas",
+            monospace;
+}
+
+.Login--modal {
+    width: min(92vw, 720px);
+    min-height: auto;
+    max-height: 85vh;
+
+    border: 1px solid #4e9a06;
+    background: #0c0c0c;
+
+    box-shadow:
+            0 24px 80px rgb(0 0 0 / 80%);
+}
+
+.login-panel {
+    width: min(100%, 440px);
+    padding: 40px;
+}
+
+.login-header {
+    margin-bottom: 32px;
+}
+
+.login-header h1 {
+    margin: 8px 0;
+    color: #eeeeec;
+}
+
+.login-header p {
+    margin: 0;
+}
+
+.login-path {
+    color: #8ae234;
+    font-size: 14px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.login-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.login-form label span {
+    color: #8ae234;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 12px;
+
+    border: 1px solid #555753;
+    outline: none;
+
+    background: #151515;
+    color: #eeeeec;
+    font: inherit;
+
+    caret-color: #8ae234;
+}
+
+.login-form input:focus {
+    border-color: #8ae234;
+    box-shadow: 0 0 0 1px #8ae234;
+}
+
+.login-form button {
+    padding: 12px;
+
+    border: 1px solid #8ae234;
+    background: transparent;
+    color: #8ae234;
+
+    font: inherit;
+    cursor: pointer;
+}
+
+.login-form button:hover {
+    background: #8ae234;
+    color: #0c0c0c;
+}
+
+.login-message {
+    margin-top: 20px;
+    color: #fce94f;
+}
+
+.login-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+    color: #eeeeec;
+
+    font-size: 28px;
+    cursor: pointer;
+}
