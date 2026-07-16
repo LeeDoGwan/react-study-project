@@ -1,0 +1,62 @@
+.boot-screen {
+    display: flex;
+    width: min(100%, 900px);
+    min-height: 600px;
+    margin: 0 auto;
+    padding: 24px;
+
+    background-color: #0c0c0c;
+    color: #d3d7cf;
+
+    font-family:
+            "JetBrains Mono",
+            "D2Coding",
+            "Consolas",
+            monospace;
+
+    font-size: 15px;
+    line-height: 1.6;
+
+    border: 1px solid #292929;
+}
+
+.boot-content {
+    width: 100%;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/*
+ * TypeIt이 생성하는 커서의 기본 클래스입니다.
+ */
+.boot-content .ti-cursor {
+    color: #8ae234;
+}
+
+/*
+ * TypeIt 옵션에서 cursor: false를 사용하면
+ * 이 스타일은 화면에 나타나지 않습니다.
+ */
+.boot-content .ti-cursor.with-delay {
+    animation: boot-cursor-blink 1s infinite;
+}
+
+@keyframes boot-cursor-blink {
+    0%,
+    45% {
+        opacity: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .boot-screen {
+        min-height: calc(100vh - 32px);
+        padding: 18px;
+        font-size: 13px;
+    }
+}

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './Terminal.css';
 
 
 function Terminal() {

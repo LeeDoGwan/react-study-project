@@ -1,16 +1,15 @@
-.app {
-    min-height: 100vh;
-    padding: 24px;
-    background: #101010;
-}
-
 .terminal {
+    display: flex;
+    flex-direction: column;
+
     width: min(100%, 900px);
     min-height: 600px;
     margin: 0 auto;
     padding: 24px;
 
-    background: #0c0c0c;
+    border: 1px solid #292929;
+
+    background-color: #0c0c0c;
     color: #d3d7cf;
 
     font-family:
@@ -18,60 +17,203 @@
             "D2Coding",
             "Consolas",
             monospace;
+
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.terminal-output {
+    flex: 1;
+
+    /*
+     * 출력 내용이 터미널 높이보다 많아지면
+     * 세로 스크롤을 표시합니다.
+     */
+    overflow-y: auto;
+
+    /*
+     * 긴 문자열이 터미널 밖으로 나가지 않고
+     * 다음 줄로 넘어가게 합니다.
+     */
+    overflow-wrap: anywhere;
+}
+
+.terminal-line {
+    /*
+     * 빈 문자열도 한 줄 높이를 유지하게 합니다.
+     */
+    min-height: 1.6em;
+
+    /*
+     * 문자열 안에 공백이나 줄바꿈이 있다면
+     * 가능한 한 그대로 표시합니다.
+     */
+    white-space: pre-wrap;
 }
 
 .terminal-input-row {
     display: flex;
+    align-items: center;
     gap: 10px;
+
+    margin-top: 4px;
+}
+
+.terminal-prompt {
+    flex-shrink: 0;
+
+    color: #8ae234;
+    font-weight: 600;
 }
 
 .terminal-input {
     flex: 1;
+    min-width: 0;
+    padding: 0;
+
     border: none;
     outline: none;
-    background: transparent;
-    color: inherit;
+
+    background-color: transparent;
+    color: #eeeeec;
+
     font: inherit;
+    line-height: inherit;
+
+    /*
+     * 브라우저의 기본 입력 커서를
+     * Linux 터미널의 초록색 계열로 표시합니다.
+     */
+    caret-color: #8ae234;
 }
 
-.prompt {
-    color: #8ae234;
-}.app {
-     min-height: 100vh;
+.terminal-input::selection {
+    background-color: #4e9a06;
+    color: #ffffff;
+}
+
+@media (max-width: 640px) {
+    .terminal {
+        min-height: calc(100vh - 32px);
+        padding: 18px;
+
+        font-size: 13px;
+    }
+
+    .terminal-input-row {
+        align-items: flex-start;
+    }
+
+    .terminal-prompt {
+        white-space: nowrap;
+    }
+}.terminal {
+     display: flex;
+     flex-direction: column;
+
+     width: min(100%, 900px);
+     min-height: 600px;
+     margin: 0 auto;
      padding: 24px;
-     background: #101010;
+
+     border: 1px solid #292929;
+
+     background-color: #0c0c0c;
+     color: #d3d7cf;
+
+     font-family:
+             "JetBrains Mono",
+             "D2Coding",
+             "Consolas",
+             monospace;
+
+     font-size: 15px;
+     line-height: 1.6;
  }
 
-.terminal {
-    width: min(100%, 900px);
-    min-height: 600px;
-    margin: 0 auto;
-    padding: 24px;
+.terminal-output {
+    flex: 1;
 
-    background: #0c0c0c;
-    color: #d3d7cf;
+    /*
+     * 출력 내용이 터미널 높이보다 많아지면
+     * 세로 스크롤을 표시합니다.
+     */
+    overflow-y: auto;
 
-    font-family:
-            "JetBrains Mono",
-            "D2Coding",
-            "Consolas",
-            monospace;
+    /*
+     * 긴 문자열이 터미널 밖으로 나가지 않고
+     * 다음 줄로 넘어가게 합니다.
+     */
+    overflow-wrap: anywhere;
+}
+
+.terminal-line {
+    /*
+     * 빈 문자열도 한 줄 높이를 유지하게 합니다.
+     */
+    min-height: 1.6em;
+
+    /*
+     * 문자열 안에 공백이나 줄바꿈이 있다면
+     * 가능한 한 그대로 표시합니다.
+     */
+    white-space: pre-wrap;
 }
 
 .terminal-input-row {
     display: flex;
+    align-items: center;
     gap: 10px;
+
+    margin-top: 4px;
+}
+
+.terminal-prompt {
+    flex-shrink: 0;
+
+    color: #8ae234;
+    font-weight: 600;
 }
 
 .terminal-input {
     flex: 1;
+    min-width: 0;
+    padding: 0;
+
     border: none;
     outline: none;
-    background: transparent;
-    color: inherit;
+
+    background-color: transparent;
+    color: #eeeeec;
+
     font: inherit;
+    line-height: inherit;
+
+    /*
+     * 브라우저의 기본 입력 커서를
+     * Linux 터미널의 초록색 계열로 표시합니다.
+     */
+    caret-color: #8ae234;
 }
 
-.prompt {
-    color: #8ae234;
+.terminal-input::selection {
+    background-color: #4e9a06;
+    color: #ffffff;
+}
+
+@media (max-width: 640px) {
+    .terminal {
+        min-height: calc(100vh - 32px);
+        padding: 18px;
+
+        font-size: 13px;
+    }
+
+    .terminal-input-row {
+        align-items: flex-start;
+    }
+
+    .terminal-prompt {
+        white-space: nowrap;
+    }
 }
