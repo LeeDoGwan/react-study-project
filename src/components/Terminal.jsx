@@ -14,8 +14,6 @@ function Terminal() {
 
     const [phase, setPhase] = useState('username');
     const [username, setUsername] = useState('');
-    //ldg0819 명령어, 결과 까지 저장하도록 변경
-    // const [lines, setLines] = useState([]);
     const [entries, setEntries] = useState([]);
 
     const outputRef = useRef(null);
@@ -52,10 +50,6 @@ function Terminal() {
                 break;
 
             case 'shell': // 명령어 처리
-                // setLines((previousLines) => [
-                //     ...previousLines,
-                //     username + '@myHome:~$ ' + value,
-                // ]);
                 handleCommand(value);
                 break;
 
@@ -177,7 +171,6 @@ function Terminal() {
                     }
                     value={input}
                     onChange={(event) => {
-
                         setInput(event.target.value);
                     }}
                 />
