@@ -38,7 +38,7 @@
     overflow-wrap: anywhere;
 }
 
-.terminal-line {
+.terminal-entry {
     /*
      * 빈 문자열도 높이 유지
      */
@@ -88,6 +88,15 @@
 .terminal-input::selection {
     background-color: #4e9a06;
     color: #ffffff;
+}
+.inSubmit {
+    background: #0c0c0c;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    color: #999;
+    caret-color: #8ae234;
+    font-size: 15px;
 }
 
 @media (max-width: 640px) {

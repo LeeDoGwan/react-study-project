@@ -3,6 +3,8 @@ import TypeIt from 'typeit';
 
 function TypeItRenderer({
                             text,
+                            command,
+                            output,
                             configure,
                             options = {},
                             onComplete,
@@ -21,6 +23,18 @@ function TypeItRenderer({
         });
         if (configure) {
             configure(instance);
+        } else if (command !== undefined) { // Terminal의 명령어 실행 결과
+            //ldg0819 명령줄 먼저 출력
+            instance.type(command, {
+                instant: true,
+            });
+
+            //ldg0819결과값 별도 출력
+            output.forEach((line) => {
+                instance
+                    .break()
+                    .type(line);
+            });
         }
 
         if (text !== undefined && text !== null) {
@@ -32,7 +46,7 @@ function TypeItRenderer({
             instance.destroy();
             element.innerHTML = '';
         };
-    }, [text, configure, options, onComplete]);
+    }, [text, command, output, configure, options, onComplete]);
 
     return (
         <div

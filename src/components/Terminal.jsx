@@ -1,6 +1,7 @@
 import {useRef, useState} from 'react';
 import './Terminal.css';
 import TypeItRenderer from "./TypeItRenderer.jsx";
+import { executeCommand } from '../commands/commands.js';
 
 const SHELL_TYPE_OPTIONS = {
     speed: 5,
@@ -10,11 +11,15 @@ const SHELL_TYPE_OPTIONS = {
 
 function Terminal() {
     const [input, setInput] = useState('');
-    const [lines, setLines] = useState([]);
+
     const [phase, setPhase] = useState('username');
     const [username, setUsername] = useState('');
+    //ldg0819 명령어, 결과 까지 저장하도록 변경
+    // const [lines, setLines] = useState([]);
+    const [entries, setEntries] = useState([]);
 
     const outputRef = useRef(null);
+    const inputRef = useRef(null);
 
     const handleSubmit = (event) => {
         //ldg0819 form 제출 시 새로고침 방지
@@ -22,6 +27,8 @@ function Terminal() {
         const value = input.trim();
 
         if (!value) {
+            handleCommand("");
+            inputAfter();
             return;
         }
 
@@ -30,6 +37,8 @@ function Terminal() {
                 setUsername(value);
                 if (value === 'lee'){
                     setPhase('password');
+                } else {
+                    //TODO: 회원가입
                 }
                 break;
 
@@ -43,44 +52,69 @@ function Terminal() {
                 break;
 
             case 'shell': // 명령어 처리
+                // setLines((previousLines) => [
+                //     ...previousLines,
+                //     username + '@myHome:~$ ' + value,
+                // ]);
                 handleCommand(value);
-                setLines((previousLines) => [
-                    ...previousLines,
-                    username + '@myHome:~$ ' + value,
-                ]);
                 break;
 
             default:
                 break;
         }
-        setInput('');
-        scrollToBottom();
+        inputAfter();
     };
 
+    //ldg0819 input after
+    const inputAfter = () => {
+        setInput('');
+        scrollToBottom();
+    }
+
     const handleCommand = (value) => {
-        const [command, ...args] =
-            value.split(/\s+/);
 
-        switch (command) {
-            case 'help':
-                break;
+        const result = executeCommand(value, {
+            username,
+        });
 
-            case 'echo':
-                console.log(args.join(' '));
-                break;
-
-            case 'clear':
-                setLines([]);
-                break;
-
-            case 'logout':
-                setUsername('');
-                setPhase('username');
-                break;
-
-            default:
-                break;
+        //ldg0819 clear
+        if (result.clear) {
+            setEntries([]);
+            // setLines([]);
+            return;
         }
+
+        //ldg0819 결과값
+        const newEntry = {
+            id: crypto.randomUUID(),
+            command: `${username}@myHome:~$ ${value}`,
+            output: result.output,
+        };
+        setEntries((previousEntries) => [
+            ...previousEntries,
+            newEntry,
+        ]);
+
+        //ldg0819 로그아웃
+        if (result.logout) {
+            setUsername('');
+            setPhase('username');
+        }
+    };
+
+    //ldg0819 터미널 포커스 -> 인풋 포커스
+    const focusInput = (event) => {
+
+        const target = event.target;
+
+        if ( //ldg0819 input 포커스 -> 링크, 버튼 가는 상황 예외처리
+            target.closest('a') ||
+            target.closest('button')
+        ) {
+            return;
+        }
+
+        inputRef.current?.focus();
     };
 
     const getPrompt = () => {
@@ -115,14 +149,19 @@ function Terminal() {
         });
     };
     return (
-        <section className="terminal">
+        <section
+            className="terminal"
+            onClick={focusInput}>
             <div
                 ref={outputRef}
                 className="terminal-output">
-                {lines.map((line, index) => (
+                {entries.map((entry) => (
                     <TypeItRenderer
-                        key={`${index}-${line}`}
-                        text={line}
+                        key={entry.id}
+                        command={entry.command}
+                        output={entry.output}
+
+                        className="terminal-entry"
                         className="terminal-line"
                         options={SHELL_TYPE_OPTIONS}
                     />
@@ -130,7 +169,7 @@ function Terminal() {
             </div>
             <form className="terminal-input-row" onSubmit={handleSubmit}>
                 <span>{getPrompt()}</span>
-                <input
+                <input className="inSubmit" ref={inputRef}
                     type={
                         phase === 'password'
                             ? 'password'
