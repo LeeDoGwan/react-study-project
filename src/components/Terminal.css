@@ -4,6 +4,7 @@
 
     width: min(100%, 900px);
     min-height: 600px;
+    max-height: 600px;
     margin: 0 auto;
     padding: 24px;
 
@@ -20,33 +21,31 @@
 
     font-size: 15px;
     line-height: 1.6;
+    /*overflow-y: hidden;*/
 }
 
 .terminal-output {
     flex: 1;
 
     /*
-     * 출력 내용이 터미널 높이보다 많아지면
-     * 세로 스크롤을 표시합니다.
+     *  스크롤 숨김(안 보이는게 더 이쁨)
      */
-    overflow-y: auto;
+    overflow-y: hidden;
 
     /*
-     * 긴 문자열이 터미널 밖으로 나가지 않고
-     * 다음 줄로 넘어가게 합니다.
+     * 문자열 길어도 박스 안에 머물게 유지
      */
     overflow-wrap: anywhere;
 }
 
 .terminal-line {
     /*
-     * 빈 문자열도 한 줄 높이를 유지하게 합니다.
+     * 빈 문자열도 높이 유지
      */
     min-height: 1.6em;
 
     /*
-     * 문자열 안에 공백이나 줄바꿈이 있다면
-     * 가능한 한 그대로 표시합니다.
+     * 문자열 공백, 줄바꿈 표시
      */
     white-space: pre-wrap;
 }
@@ -81,117 +80,7 @@
     line-height: inherit;
 
     /*
-     * 브라우저의 기본 입력 커서를
-     * Linux 터미널의 초록색 계열로 표시합니다.
-     */
-    caret-color: #8ae234;
-}
-
-.terminal-input::selection {
-    background-color: #4e9a06;
-    color: #ffffff;
-}
-
-@media (max-width: 640px) {
-    .terminal {
-        min-height: calc(100vh - 32px);
-        padding: 18px;
-
-        font-size: 13px;
-    }
-
-    .terminal-input-row {
-        align-items: flex-start;
-    }
-
-    .terminal-prompt {
-        white-space: nowrap;
-    }
-}.terminal {
-     display: flex;
-     flex-direction: column;
-
-     width: min(100%, 900px);
-     min-height: 600px;
-     margin: 0 auto;
-     padding: 24px;
-
-     border: 1px solid #292929;
-
-     background-color: #0c0c0c;
-     color: #d3d7cf;
-
-     font-family:
-             "JetBrains Mono",
-             "D2Coding",
-             "Consolas",
-             monospace;
-
-     font-size: 15px;
-     line-height: 1.6;
- }
-
-.terminal-output {
-    flex: 1;
-
-    /*
-     * 출력 내용이 터미널 높이보다 많아지면
-     * 세로 스크롤을 표시합니다.
-     */
-    overflow-y: auto;
-
-    /*
-     * 긴 문자열이 터미널 밖으로 나가지 않고
-     * 다음 줄로 넘어가게 합니다.
-     */
-    overflow-wrap: anywhere;
-}
-
-.terminal-line {
-    /*
-     * 빈 문자열도 한 줄 높이를 유지하게 합니다.
-     */
-    min-height: 1.6em;
-
-    /*
-     * 문자열 안에 공백이나 줄바꿈이 있다면
-     * 가능한 한 그대로 표시합니다.
-     */
-    white-space: pre-wrap;
-}
-
-.terminal-input-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    margin-top: 4px;
-}
-
-.terminal-prompt {
-    flex-shrink: 0;
-
-    color: #8ae234;
-    font-weight: 600;
-}
-
-.terminal-input {
-    flex: 1;
-    min-width: 0;
-    padding: 0;
-
-    border: none;
-    outline: none;
-
-    background-color: transparent;
-    color: #eeeeec;
-
-    font: inherit;
-    line-height: inherit;
-
-    /*
-     * 브라우저의 기본 입력 커서를
-     * Linux 터미널의 초록색 계열로 표시합니다.
+     * 입력 커서 Linux 터미널 커서로 변경
      */
     caret-color: #8ae234;
 }

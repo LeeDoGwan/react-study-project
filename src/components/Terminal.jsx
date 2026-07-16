@@ -1,5 +1,11 @@
-import { useState } from 'react';
+import {useRef, useState} from 'react';
 import './Terminal.css';
+import TypeItRenderer from "./TypeItRenderer.jsx";
+
+const SHELL_TYPE_OPTIONS = {
+    speed: 5,
+    cursor: false,
+};
 
 
 function Terminal() {
@@ -7,6 +13,8 @@ function Terminal() {
     const [lines, setLines] = useState([]);
     const [phase, setPhase] = useState('username');
     const [username, setUsername] = useState('');
+
+    const outputRef = useRef(null);
 
     const handleSubmit = (event) => {
         //ldg0819 form 제출 시 새로고침 방지
@@ -18,15 +26,14 @@ function Terminal() {
         }
 
         switch (phase) {
-            // 아이디 처리
-            case 'username':
+            case 'username': // 아이디 처리
                 setUsername(value);
                 if (value === 'lee'){
                     setPhase('password');
                 }
                 break;
 
-            case 'password':
+            case 'password': // 비밀번호 처리
                 if (value === '1234') {
                     setPhase('shell');
                 } else {
@@ -35,24 +42,19 @@ function Terminal() {
                 }
                 break;
 
-            case 'shell':
-                // 명령어 처리
+            case 'shell': // 명령어 처리
                 handleCommand(value);
+                setLines((previousLines) => [
+                    ...previousLines,
+                    username + '@myHome:~$ ' + value,
+                ]);
                 break;
 
             default:
                 break;
         }
-        let lineTxt = value
-        if (phase === 'password')
-            lineTxt = '*'.repeat(input.trim().length);
-        setLines((previousLines) => [
-            ...previousLines,
-            lineTxt,
-        ]);
-
-
         setInput('');
+        scrollToBottom();
     };
 
     const handleCommand = (value) => {
@@ -90,15 +92,42 @@ function Terminal() {
                 return 'Password:';
 
             case 'shell':
-                return 'visitor@myHome:~$';
+                return username + '@myHome:~$';
 
             default:
                 return '';
         }
     };
+    const scrollToBottom = () => {
+        requestAnimationFrame(() => {
+            const output = outputRef.current;
 
+            if (!output) {
+                return;
+            }
+
+            const hasVerticalScroll =
+                output.scrollHeight > output.clientHeight;
+
+            if (hasVerticalScroll) {
+                output.scrollTop = output.scrollHeight;
+            }
+        });
+    };
     return (
         <section className="terminal">
+            <div
+                ref={outputRef}
+                className="terminal-output">
+                {lines.map((line, index) => (
+                    <TypeItRenderer
+                        key={`${index}-${line}`}
+                        text={line}
+                        className="terminal-line"
+                        options={SHELL_TYPE_OPTIONS}
+                    />
+                ))}
+            </div>
             <form className="terminal-input-row" onSubmit={handleSubmit}>
                 <span>{getPrompt()}</span>
                 <input
@@ -113,14 +142,7 @@ function Terminal() {
                         setInput(event.target.value);
                     }}
                 />
-                {lines.map((line, index) => (
-                    <div key={index}>
-                        {line}
-                    </div>
-
-                ))}
             </form>
-
         </section>
     );
 }

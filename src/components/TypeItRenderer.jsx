@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import TypeIt from 'typeit';
 
 function TypeItRenderer({
+                            text,
                             configure,
                             options = {},
                             onComplete,
@@ -18,16 +19,20 @@ function TypeItRenderer({
             ...options,
             afterComplete: onComplete,
         });
+        if (configure) {
+            configure(instance);
+        }
 
-        configure(instance);
-
+        if (text !== undefined && text !== null) {
+            instance.type(text);
+        }
         instance.go();
 
         return () => {
             instance.destroy();
             element.innerHTML = '';
         };
-    }, [configure, options, onComplete]);
+    }, [text, configure, options, onComplete]);
 
     return (
         <div

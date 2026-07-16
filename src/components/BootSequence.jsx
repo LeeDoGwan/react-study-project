@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef} from 'react';
+import {useCallback} from 'react';
 import './BootSequence.css';
 import TypeItRenderer from "./TypeItRenderer.jsx";
 
@@ -12,12 +12,11 @@ const bootTxtLine = [
     'Status: building maintainable systems'
 ]
 const BOOT_TYPE_OPTIONS = {
-    speed: 100,
-    cursor: false,
+    // speed: 70,
+    speed: 1,
+    cursor: true,
 };
 function BootSequence({ onComplete }) {
-
-
     const configureBootAnimation = useCallback(
         (instance) => {
             bootTxtLine.forEach((line) => {
@@ -38,49 +37,7 @@ function BootSequence({ onComplete }) {
                 .break()
                 .type('Starting myHome shell...')
                 .pause(1000);
-
     }, []);
-    // useEffect(() => {
-    //     const typeIt = new TypeIt(
-    //         textRef.current,
-    //         {
-    //             speed: 50,
-    //             cursor: false,
-    //             afterComplete: () => {
-    //                 onComplete();
-    //             },
-    //         },
-    //     );
-    //
-    //     typeIt
-    //         .type('OS: Backend GNU/Linux').break()
-    //         .type('Host: LeeDoGwan@github').break()
-    //         .type('Role: Backend Engineer').break()
-    //         .type('Kernel: Java 11 / Spring Boot 2.7').break()
-    //         .type('Shell: root-cause-first').break()
-    //         .type('Focus: performance, reliability, networking').break()
-    //         .type('Status: building maintainable systems').break()
-    //         .pause(1000);
-    //
-    //     typeIt
-    //         .type('loading')
-    //         .pause(100).type('.').pause(100).type('.')
-    //         .pause(100).type('.').pause(100).type('.')
-    //         .pause(100).type('.').pause(100).type('.')
-    //         .break()
-    //
-    //
-    //     typeIt.delete()
-    //         .type('Rocky Linux 10')
-    //         .break()
-    //         .type('Starting myHome shell...')
-    //         .pause(1000)
-    //         .go();
-    //
-    //     return () => {
-    //         typeIt.destroy();
-    //     };
-    // }, []);
     return (
 
         <section className="boot-screen">
@@ -90,7 +47,6 @@ function BootSequence({ onComplete }) {
                 options={BOOT_TYPE_OPTIONS}
                 onComplete={onComplete}
             />
-            {/*<div ref={textRef} className="boot-content" />*/}
         </section>
     );
 }

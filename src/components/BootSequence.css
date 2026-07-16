@@ -27,15 +27,14 @@
 }
 
 /*
- * TypeIt이 생성하는 커서의 기본 클래스입니다.
+ * TypeIt cursor class
  */
 .boot-content .ti-cursor {
     color: #8ae234;
 }
 
 /*
- * TypeIt 옵션에서 cursor: false를 사용하면
- * 이 스타일은 화면에 나타나지 않습니다.
+ * TypeIt cursor
  */
 .boot-content .ti-cursor.with-delay {
     animation: boot-cursor-blink 1s infinite;
