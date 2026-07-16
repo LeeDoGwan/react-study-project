@@ -1,7 +1,7 @@
 function commands() {
     return (
         <section>
-            Terminal
+
         </section>
     );
 }

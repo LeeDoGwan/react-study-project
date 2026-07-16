@@ -1,0 +1,77 @@
+.app {
+    min-height: 100vh;
+    padding: 24px;
+    background: #101010;
+}
+
+.terminal {
+    width: min(100%, 900px);
+    min-height: 600px;
+    margin: 0 auto;
+    padding: 24px;
+
+    background: #0c0c0c;
+    color: #d3d7cf;
+
+    font-family:
+            "JetBrains Mono",
+            "D2Coding",
+            "Consolas",
+            monospace;
+}
+
+.terminal-input-row {
+    display: flex;
+    gap: 10px;
+}
+
+.terminal-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+}
+
+.prompt {
+    color: #8ae234;
+}.app {
+     min-height: 100vh;
+     padding: 24px;
+     background: #101010;
+ }
+
+.terminal {
+    width: min(100%, 900px);
+    min-height: 600px;
+    margin: 0 auto;
+    padding: 24px;
+
+    background: #0c0c0c;
+    color: #d3d7cf;
+
+    font-family:
+            "JetBrains Mono",
+            "D2Coding",
+            "Consolas",
+            monospace;
+}
+
+.terminal-input-row {
+    display: flex;
+    gap: 10px;
+}
+
+.terminal-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+}
+
+.prompt {
+    color: #8ae234;
+}

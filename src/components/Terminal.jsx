@@ -10,13 +10,7 @@ function Terminal() {
     const handleSubmit = (event) => {
         //ldg0819 form 제출 시 새로고침 방지
         event.preventDefault();
-        let lineTxt;
-        if (phase === 'password')
-            lineTxt = '*'.repeat(input.trim().length);
-        else
-            lineTxt = input.trim();
-        const value = lineTxt;
-
+        const value = input.trim();
 
         if (!value) {
             return;
@@ -33,9 +27,7 @@ function Terminal() {
 
             case 'password':
                 if (value === '1234') {
-
                     setPhase('shell');
-
                 } else {
                     setUsername('');
                     setPhase('username');
@@ -44,18 +36,48 @@ function Terminal() {
 
             case 'shell':
                 // 명령어 처리
+                handleCommand(value);
                 break;
 
             default:
                 break;
         }
+        let lineTxt = value
+        if (phase === 'password')
+            lineTxt = '*'.repeat(input.trim().length);
         setLines((previousLines) => [
             ...previousLines,
-            value,
+            lineTxt,
         ]);
 
 
         setInput('');
+    };
+
+    const handleCommand = (value) => {
+        const [command, ...args] =
+            value.split(/\s+/);
+
+        switch (command) {
+            case 'help':
+                break;
+
+            case 'echo':
+                console.log(args.join(' '));
+                break;
+
+            case 'clear':
+                setLines([]);
+                break;
+
+            case 'logout':
+                setUsername('');
+                setPhase('username');
+                break;
+
+            default:
+                break;
+        }
     };
 
     const getPrompt = () => {
@@ -75,8 +97,8 @@ function Terminal() {
     };
 
     return (
-        <section>
-            <form onSubmit={handleSubmit}>
+        <section className="terminal">
+            <form className="terminal-input-row" onSubmit={handleSubmit}>
                 <span>{getPrompt()}</span>
                 <input
                     type={
