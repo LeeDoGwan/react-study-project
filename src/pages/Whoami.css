@@ -1,0 +1,387 @@
+.Whoami {
+    position: relative;
+
+    width: min(92vw, 1050px);
+    max-height: 88vh;
+    padding: 42px;
+
+    box-sizing: border-box;
+    overflow-y: auto;
+
+    border: 1px solid #4e9a06;
+    background: #0c0c0c;
+    color: #d3d7cf;
+
+    box-shadow:
+            0 24px 80px rgb(0 0 0 / 85%);
+
+    font-family:
+            "JetBrains Mono",
+            "D2Coding",
+            "Consolas",
+            monospace;
+}
+
+.whoami-header {
+    margin-bottom: 36px;
+    padding-right: 44px;
+}
+
+.whoami-header h1 {
+    margin: 8px 0 10px;
+
+    color: #eeeeec;
+    font-size: clamp(30px, 5vw, 52px);
+    line-height: 1;
+}
+
+.whoami-header > p:last-child {
+    max-width: 720px;
+    margin: 0;
+
+    color: #babdb6;
+    line-height: 1.7;
+}
+
+.whoami-path {
+    margin: 0;
+
+    color: #8ae234;
+    font-size: 14px;
+}
+
+.whoami-content {
+    display: flex;
+    flex-direction: column;
+    gap: 42px;
+}
+
+.whoami-profile {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 36px;
+    align-items: center;
+
+    padding: 28px;
+
+    border: 1px solid #2e3436;
+    background: #101010;
+}
+
+.whoami-avatar {
+    position: relative;
+
+    width: 100%;
+    aspect-ratio: 1 / 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border: 1px solid #4e9a06;
+    background:
+            linear-gradient(
+                    135deg,
+                    #0c0c0c,
+                    #1b2a16
+            );
+
+    color: #8ae234;
+    font-size: 44px;
+    font-weight: 700;
+}
+
+.whoami-avatar img {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+}
+
+.whoami-avatar span {
+    position: relative;
+    z-index: 0;
+}
+
+.whoami-command {
+    margin: 0 0 10px;
+
+    color: #8ae234;
+    font-size: 13px;
+}
+
+.whoami-summary h2 {
+    margin: 0;
+
+    color: #eeeeec;
+    font-size: 28px;
+}
+
+.whoami-role {
+    margin: 6px 0 18px;
+
+    color: #8ae234;
+}
+
+.whoami-description {
+    max-width: 620px;
+    margin: 0 0 24px;
+
+    color: #babdb6;
+    line-height: 1.7;
+}
+
+.whoami-info {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 24px;
+
+    margin: 0;
+}
+
+.whoami-info div {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+}
+
+.whoami-info dt {
+    color: #888a85;
+}
+
+.whoami-info dd {
+    min-width: 0;
+    margin: 0;
+
+    color: #eeeeec;
+}
+
+.whoami-status {
+    color: #8ae234 !important;
+}
+
+.whoami-status::before {
+    display: inline-block;
+
+    width: 8px;
+    height: 8px;
+    margin-right: 8px;
+
+    border-radius: 50%;
+    background: #8ae234;
+
+    content: "";
+    box-shadow: 0 0 8px #8ae234;
+}
+
+.whoami-section {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 32px;
+
+    padding-top: 32px;
+    border-top: 1px solid #2e3436;
+}
+
+.whoami-section-title {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+}
+
+.whoami-section-title span {
+    color: #4e9a06;
+    font-size: 12px;
+}
+
+.whoami-section-title h2 {
+    margin: 0;
+
+    color: #eeeeec;
+    font-size: 20px;
+}
+
+.whoami-text {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.whoami-text p {
+    margin: 0;
+
+    color: #babdb6;
+    line-height: 1.8;
+}
+
+.whoami-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.whoami-skills li {
+    padding: 8px 12px;
+
+    border: 1px solid #3c3f3a;
+    background: #151515;
+    color: #d3d7cf;
+
+    font-size: 13px;
+
+    transition:
+            border-color 0.15s ease,
+            color 0.15s ease;
+}
+
+.whoami-skills li:hover {
+    border-color: #8ae234;
+    color: #8ae234;
+}
+
+.whoami-achievements {
+    display: grid;
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.whoami-achievement {
+    padding: 20px;
+
+    border: 1px solid #2e3436;
+    background: #101010;
+}
+
+.whoami-achievement strong {
+    display: block;
+    margin-bottom: 16px;
+
+    color: #8ae234;
+    font-size: 22px;
+}
+
+.whoami-achievement h3 {
+    margin: 0 0 10px;
+
+    color: #eeeeec;
+    font-size: 14px;
+}
+
+.whoami-achievement p {
+    margin: 0;
+
+    color: #888a85;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.whoami-links {
+    display: grid;
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.whoami-links a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 16px 18px;
+
+    border: 1px solid #3c3f3a;
+
+    color: #d3d7cf;
+    text-decoration: none;
+
+    transition:
+            border-color 0.15s ease,
+            background 0.15s ease,
+            color 0.15s ease;
+}
+
+.whoami-links a:hover {
+    border-color: #8ae234;
+    background: #151d13;
+    color: #8ae234;
+}
+
+.whoami-close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    z-index: 10;
+
+    padding: 4px 8px;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+    color: #eeeeec;
+
+    font-family: inherit;
+    font-size: 28px;
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+.whoami-close:hover,
+.whoami-close:focus-visible {
+    color: #8ae234;
+}
+
+@media (max-width: 850px) {
+    .whoami-profile {
+        grid-template-columns: 180px 1fr;
+    }
+
+    .whoami-section {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .whoami-achievements {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 620px) {
+    .Whoami {
+        width: calc(100vw - 24px);
+        max-height: calc(100vh - 24px);
+
+        padding: 32px 20px;
+    }
+
+    .whoami-profile {
+        grid-template-columns: 1fr;
+    }
+
+    .whoami-avatar {
+        width: min(100%, 240px);
+        margin: 0 auto;
+    }
+
+    .whoami-info {
+        grid-template-columns: 1fr;
+    }
+
+    .whoami-links {
+        grid-template-columns: 1fr;
+    }
+}

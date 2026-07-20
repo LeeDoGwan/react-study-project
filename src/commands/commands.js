@@ -7,6 +7,7 @@ const commandHandlers = {
                 '  echo   - 입력한 문자열 출력',
                 '  clear  - 터미널 화면 초기화',
                 '  logout - 로그아웃',
+                '  hobby  - 취미',
             ],
         };
     },
@@ -29,6 +30,21 @@ const commandHandlers = {
             output: ['Logout successful.'],
             logout: true,
             route: '/login',
+        };
+    },
+
+    hobby: () => {
+        return {
+            output: ['Opening hobby archive...'],
+            hobby: true,
+            route: '/hobby',
+        };
+    },
+    whoami: () => {
+        return {
+            output: ['( ﾉ ﾟｰﾟ)ﾉ'],
+            whoami: true,
+            route: '/whoami',
         };
     },
 };

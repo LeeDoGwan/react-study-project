@@ -29,9 +29,12 @@ function Terminal({user}) {
             return;
         }
         hasOpenedLoginRef.current = true;
+        dirPage('/login');
+    }
 
+    const dirPage = (route) => {
         const frameId = requestAnimationFrame(() => {
-            navigate('/login', {
+            navigate(route, {
                 replace: true,
             });
         });
@@ -94,6 +97,10 @@ function Terminal({user}) {
         if (result.logout) {
             hasOpenedLoginRef.current = false;
             dirLogin();
+        } else if (result.hobby) {
+            dirPage(result.route);
+        } else if (result.whoami) {
+            dirPage(result.route);
         }
     };
 

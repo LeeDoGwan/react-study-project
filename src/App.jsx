@@ -11,7 +11,8 @@ import TerminalLayout from './layouts/TerminalLayout.jsx';
 
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
-// import Projects from './pages/Projects.jsx';
+import Hobby from './pages/Hobby.jsx';
+import Whoami from './pages/Whoami.jsx';
 
 function App() {
     const [isBootComplete, setIsBootComplete] =
@@ -44,13 +45,14 @@ function App() {
                     path="register"
                     element={<Register modal />}
                 />
-
-                {/*
                 <Route
-                    path="projects"
-                    element={<Projects modal />}
+                    path="hobby"
+                    element={<Hobby modal/>}
                 />
-                */}
+                <Route
+                    path="whoami"
+                    element={<Whoami modal/>}
+                />
             </Route>
         </Routes>
     );
