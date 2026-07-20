@@ -11,13 +11,12 @@ const SHELL_TYPE_OPTIONS = {
     cursor: false,
 };
 
-function Terminal() {
+function Terminal({user}) {
     //ldg0819 routes
     const navigate = useNavigate();
 
     const [input, setInput] = useState('');
 
-    const [phase, setPhase] = useState('username');
     const [username, setUsername] = useState('');
     const [entries, setEntries] = useState([]);
 
@@ -25,16 +24,13 @@ function Terminal() {
     const inputRef = useRef(null);
     const hasOpenedLoginRef = useRef(false);
 
-    useEffect(() => {
+    const dirLogin = () =>{
         if (hasOpenedLoginRef.current) {
             return;
         }
-
         hasOpenedLoginRef.current = true;
 
         const frameId = requestAnimationFrame(() => {
-            console.log('login open');
-
             navigate('/login', {
                 replace: true,
             });
@@ -43,6 +39,10 @@ function Terminal() {
         return () => {
             cancelAnimationFrame(frameId);
         };
+    }
+
+    useEffect(() => {
+        dirLogin();
     }, [navigate]);
 
     const handleSubmit = (event) => {
@@ -55,33 +55,8 @@ function Terminal() {
             inputAfter();
             return;
         }
+        handleCommand(value);
 
-        switch (phase) {
-            case 'username': // 아이디 처리
-                setUsername(value);
-                if (value === 'lee'){
-                    setPhase('password');
-                } else {
-                    //TODO: 회원가입
-                }
-                break;
-
-            case 'password': // 비밀번호 처리
-                if (value === '1234') {
-                    setPhase('shell');
-                } else {
-                    setUsername('');
-                    setPhase('username');
-                }
-                break;
-
-            case 'shell': // 명령어 처리
-                handleCommand(value);
-                break;
-
-            default:
-                break;
-        }
         inputAfter();
     };
 
@@ -92,9 +67,8 @@ function Terminal() {
     }
 
     const handleCommand = (value) => {
-
         const result = executeCommand(value, {
-            username,
+            username: user?.loginId ?? '',
         });
 
         //ldg0819 clear
@@ -118,14 +92,13 @@ function Terminal() {
 
         //ldg0819 로그아웃
         if (result.logout) {
-            setUsername('');
-            setPhase('username');
+            hasOpenedLoginRef.current = false;
+            dirLogin();
         }
     };
 
     //ldg0819 터미널 포커스 -> 인풋 포커스
     const focusInput = (event) => {
-
         const target = event.target;
 
         if ( //ldg0819 input 포커스 -> 링크, 버튼 가는 상황 예외처리
@@ -139,19 +112,8 @@ function Terminal() {
     };
 
     const getPrompt = () => {
-        switch (phase) {
-            case 'username':
-                return 'myHome login:';
-
-            case 'password':
-                return 'Password:';
-
-            case 'shell':
-                return username + '@myHome:~$';
-
-            default:
-                return '';
-        }
+        const name = user?.loginId?? '';
+        return `${name}@myHome:~$`;
     };
     const scrollToBottom = () => {
         requestAnimationFrame(() => {
@@ -190,15 +152,8 @@ function Terminal() {
             <form className="terminal-input-row" onSubmit={handleSubmit}>
                 <span>{getPrompt()}</span>
                 <input className="inSubmit" ref={inputRef}
-                    type={
-                        phase === 'password'
-                            ? 'password'
-                            : 'text'
-                    }
                     value={input}
                     onChange={(event) => {
-                        // completeValue={phase}
-                        // onComplete={handleTypingComplete}
                         setInput(event.target.value);
                     }}
                 />

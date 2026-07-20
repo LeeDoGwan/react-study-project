@@ -1,15 +1,18 @@
 import {
-    useOutlet,
+    Outlet,
+    useLocation,
 } from 'react-router';
+import {useState} from "react";
 
 import Terminal from '../components/Terminal.jsx';
 import './TerminalLayout.css';
 
-function TerminalLayout() {
-    const page = useOutlet();
 
+function TerminalLayout() {
+    const location = useLocation();
+    const [user, setUser] = useState(null);
     // 자식 라우트가 있으면 Terminal 위에 페이지가 열린 상태
-    const isPageOpen  = page !== null;
+    const isPageOpen = location.pathname !== '/';
 
     return (
         <main className="app">
@@ -17,19 +20,22 @@ function TerminalLayout() {
             <div
                 className="route-background"
                 inert={
-                    isPageOpen
-                        ? ''
-                        : undefined
+                    isPageOpen ? '' : undefined
                 }
                 aria-hidden={isPageOpen}
             >
-                <Terminal />
+                <Terminal user={user}/>
             </div>
 
             {/* /login, /register 등의 페이지 */}
             {isPageOpen && (
                 <div className="route-overlay">
-                    {page}
+                    <Outlet
+                        context={{
+                            user,
+                            setUser,
+                        }}
+                    />
                 </div>
             )}
         </main>

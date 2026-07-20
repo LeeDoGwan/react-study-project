@@ -28,6 +28,7 @@ const commandHandlers = {
         return {
             output: ['Logout successful.'],
             logout: true,
+            route: '/login',
         };
     },
 };

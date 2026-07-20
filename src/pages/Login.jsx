@@ -1,9 +1,12 @@
 import {useState} from 'react';
-import {useNavigate} from 'react-router';
+import {useNavigate,
+    useOutletContext,
+} from 'react-router';
 import './Login.css';
 
 function Login() {
     const navigate = useNavigate();
+    const {setUser} = useOutletContext();
 
     const [loginId, setLoginId] = useState('');
     const [password, setPassword] = useState('');
@@ -25,7 +28,10 @@ function Login() {
             password === '1234'
         ) {
             setMessage('Login successful.');
-
+            // TerminalLayout에 로그인 사용자 전달
+            setUser({
+                loginId: trimmedLoginId,
+            });
             // 로그인 페이지를 닫고 Terminal로 돌아감
             navigate('/', {
                 replace: true,
@@ -42,21 +48,8 @@ function Login() {
         navigate('/register');
     };
 
-    // 로그인 페이지 닫기
-    const handleClose = () => {
-        navigate('/');
-    };
-
     return (
         <main className="Login">
-            <button
-                type="button"
-                className="login-close"
-                onClick={handleClose}
-                aria-label="Close login page"
-            >
-                ×
-            </button>
 
             <section className="login-panel">
                 <header className="login-header">

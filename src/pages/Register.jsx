@@ -5,6 +5,14 @@ import {
 } from 'react-router';
 import './Login.css';
 
+//영문과 숫자를 각각 최소 1개 포함, 특수문자 금지, 8~15자v
+const ID_REGEX =
+    /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$/;
+
+//영문과 특수문자를 각각 최소 1개 포함, 8~15자
+const PASSWORD_REGEX =
+    /^(?=.{8,15}$)(?=.*[A-Za-z])(?=.*[^A-Za-z0-9])\S+$/;
+
 function Register({modal = false}) {
     const navigate = useNavigate();
     const location = useLocation();
@@ -30,12 +38,10 @@ function Register({modal = false}) {
             setMessage('Please enter all required fields.');
             return;
         }
-
-        if (password.length < 4) {
-            setMessage(
-                'Password must be at least 4 characters.',
-            );
-            return;
+        if (!ID_REGEX.test(trimmedLoginId)){
+            setMessage('ID must be 8-15 characters and contain both letters and numbers.');
+        } else if (!PASSWORD_REGEX.test(password)){
+            setMessage('Password must be 8-15 characters, include at least one letter and one special character')
         }
 
         if (password !== passwordConfirm) {
@@ -56,8 +62,7 @@ function Register({modal = false}) {
         });
     };
 
-    // 로그인 페이지로 돌아가기
-    const handleLogin = () => {
+    const dirLogin = () =>{
         if (backgroundLocation) {
             navigate('/login', {
                 state: {
@@ -68,15 +73,16 @@ function Register({modal = false}) {
         }
 
         navigate('/login');
+    }
+
+    // 로그인 페이지로 돌아가기
+    const handleLogin = () => {
+        dirLogin();
     };
 
     // 회원가입 모달 닫기
     const handleClose = () => {
-        if (!modal) {
-            return;
-        }
-
-        navigate(-1);
+        dirLogin();
     };
 
     return (
@@ -158,13 +164,13 @@ function Register({modal = false}) {
                     </label>
 
                     <div className="login-actions">
-                        <button type="submit">
+                        <button type="submit" className="login-register">
                             Create Account
                         </button>
 
                         <button
                             type="button"
-                            className="login-secondary"
+                            className="login-submit"
                             onClick={handleLogin}
                         >
                             Back to Login
