@@ -1,4 +1,4 @@
-import {useCallback, useRef, useState} from 'react';
+import {useRef, useState, useEffect} from 'react';
 import './Terminal.css';
 import TypeItRenderer from "./TypeItRenderer.jsx";
 import { executeCommand } from '../commands/commands.js';
@@ -26,23 +26,29 @@ function Terminal() {
     const outputRef = useRef(null);
     const inputRef = useRef(null);
 
-    const handleTypingComplete = useCallback(
-        (route) => {
-            console.log(1)
-            if (!route) {
-                return;
-            }
+    useEffect(() => { //ldg0819 myHome login 이 나오자마자 로그인 페이지로
+        //test
+        return;
+        if (phase !== 'username') {
+            return;
+        }
 
-            if (phase === 'username'){
-                navigate(route, {
-                    state: {
-                        backgroundLocation: location,
-                    },
-                });
-            }
-        },
-        [navigate, location],
-    );
+        if (location.pathname === '/login') {
+            return;
+        }
+
+        const frameId = requestAnimationFrame(() => {
+            navigate('/login', {
+                state: {
+                    backgroundLocation: location,
+                },
+            });
+        });
+
+        return () => {
+            cancelAnimationFrame(frameId);
+        };
+    }, [phase, location, navigate]);
 
     const handleSubmit = (event) => {
         //ldg0819 form 제출 시 새로고침 방지
@@ -183,8 +189,6 @@ function Terminal() {
 
                         className="terminal-entry"
                         options={SHELL_TYPE_OPTIONS}
-                        // completeValue={phase}
-                        // onComplete={handleTypingComplete}
                     />
                 ))}
             </div>
@@ -198,6 +202,8 @@ function Terminal() {
                     }
                     value={input}
                     onChange={(event) => {
+                        // completeValue={phase}
+                        // onComplete={handleTypingComplete}
                         setInput(event.target.value);
                     }}
                 />

@@ -14,7 +14,7 @@ function Login({ modal = false }) {
 
         if (loginId === 'lee' && password === '1234') {
             setMessage('Login successful.');
-
+            navigate(-1);
             return;
         }
 
@@ -23,11 +23,9 @@ function Login({ modal = false }) {
 
     const handleClose = () => {
         if (modal) {
-            navigate(-1);
+            navigate('/');
             return;
         }
-
-        navigate('/');
     };
 
     return (
