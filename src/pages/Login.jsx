@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import {useState} from 'react';
+import {useNavigate} from 'react-router';
 import './Login.css';
 
-function Login({ modal = false }) {
+function Login() {
     const navigate = useNavigate();
 
     const [loginId, setLoginId] = useState('');
@@ -12,35 +12,48 @@ function Login({ modal = false }) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        if (loginId === 'lee' && password === '1234') {
+        const trimmedLoginId = loginId.trim();
+
+        if (!trimmedLoginId || !password) {
+            setMessage(
+                'Please enter your username and password.',
+            );
+            return;
+        }
+        if (
+            trimmedLoginId === 'lee' &&
+            password === '1234'
+        ) {
             setMessage('Login successful.');
-            navigate(-1);
+
+            // 로그인 페이지를 닫고 Terminal로 돌아감
+            navigate('/', {
+                replace: true,
+            });
+
             return;
         }
 
         setMessage('Invalid username or password.');
     };
 
+    // 회원가입 페이지 이동
+    const handleRegister = () => {
+        navigate('/register');
+    };
+
+    // 로그인 페이지 닫기
     const handleClose = () => {
-        if (modal) {
-            navigate('/');
-            return;
-        }
+        navigate('/');
     };
 
     return (
-        <main
-            className={
-                modal
-                    ? 'Login Login--modal'
-                    : 'Login'
-            }
-        >
+        <main className="Login">
             <button
                 type="button"
                 className="login-close"
                 onClick={handleClose}
-                aria-label="로그인 화면 닫기"
+                aria-label="Close login page"
             >
                 ×
             </button>
@@ -48,7 +61,7 @@ function Login({ modal = false }) {
             <section className="login-panel">
                 <header className="login-header">
                     <p className="login-path">
-                        authentication://myHome
+                        authentication://myHome/login
                     </p>
 
                     <h1>System Login</h1>
@@ -69,10 +82,13 @@ function Login({ modal = false }) {
                             type="text"
                             value={loginId}
                             onChange={(event) => {
-                                setLoginId(event.target.value);
+                                setLoginId(
+                                    event.target.value,
+                                );
                             }}
                             autoFocus
                             autoComplete="username"
+                            spellCheck={false}
                         />
                     </label>
 
@@ -83,19 +99,37 @@ function Login({ modal = false }) {
                             type="password"
                             value={password}
                             onChange={(event) => {
-                                setPassword(event.target.value);
+                                setPassword(
+                                    event.target.value,
+                                );
                             }}
                             autoComplete="current-password"
                         />
                     </label>
 
-                    <button type="submit">
-                        Login
-                    </button>
+                    <div className="login-actions">
+                        <button
+                            type="submit"
+                            className="login-submit"
+                        >
+                            Login
+                        </button>
+
+                        <button
+                            type="button"
+                            className="login-register"
+                            onClick={handleRegister}
+                        >
+                            Register
+                        </button>
+                    </div>
                 </form>
 
                 {message && (
-                    <p className="login-message">
+                    <p
+                        className="login-message"
+                        role="status"
+                    >
                         {message}
                     </p>
                 )}

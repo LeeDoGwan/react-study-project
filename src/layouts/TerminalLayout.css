@@ -1,0 +1,39 @@
+.app {
+    position: relative;
+
+    width: 100%;
+    min-height: 100vh;
+
+    overflow: hidden;
+    background: #000;
+}
+
+.route-background {
+    width: 100%;
+    min-height: 100vh;
+
+    /* 배경에 직접 블러를 적용하면 안 됨 */
+    filter: none;
+    opacity: 1;
+}
+
+.route-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+    box-sizing: border-box;
+
+    overflow-y: auto;
+
+    background: rgb(0 0 0 / 45%);
+
+    /* 오버레이가 존재할 때만 뒤쪽 Terminal 블러 */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}

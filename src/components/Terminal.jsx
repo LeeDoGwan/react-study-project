@@ -3,7 +3,6 @@ import './Terminal.css';
 import TypeItRenderer from "./TypeItRenderer.jsx";
 import { executeCommand } from '../commands/commands.js';
 import {
-    useLocation,
     useNavigate,
 } from 'react-router';
 
@@ -15,7 +14,6 @@ const SHELL_TYPE_OPTIONS = {
 function Terminal() {
     //ldg0819 routes
     const navigate = useNavigate();
-    const location = useLocation();
 
     const [input, setInput] = useState('');
 
@@ -25,30 +23,27 @@ function Terminal() {
 
     const outputRef = useRef(null);
     const inputRef = useRef(null);
+    const hasOpenedLoginRef = useRef(false);
 
-    useEffect(() => { //ldg0819 myHome login 이 나오자마자 로그인 페이지로
-        //test
-        return;
-        if (phase !== 'username') {
+    useEffect(() => {
+        if (hasOpenedLoginRef.current) {
             return;
         }
 
-        if (location.pathname === '/login') {
-            return;
-        }
+        hasOpenedLoginRef.current = true;
 
         const frameId = requestAnimationFrame(() => {
+            console.log('login open');
+
             navigate('/login', {
-                state: {
-                    backgroundLocation: location,
-                },
+                replace: true,
             });
         });
 
         return () => {
             cancelAnimationFrame(frameId);
         };
-    }, [phase, location, navigate]);
+    }, [navigate]);
 
     const handleSubmit = (event) => {
         //ldg0819 form 제출 시 새로고침 방지
