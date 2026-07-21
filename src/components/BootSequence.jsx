@@ -13,7 +13,7 @@ const bootTxtLine = [
 ]
 const BOOT_TYPE_OPTIONS = {
     // speed: 70,
-    speed: 1,
+    speed: 5,
     cursor: true,
 };
 function BootSequence({ onComplete }) {

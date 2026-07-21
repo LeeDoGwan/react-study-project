@@ -40,8 +40,10 @@ function Register({modal = false}) {
         }
         if (!ID_REGEX.test(trimmedLoginId)){
             setMessage('ID must be 8-15 characters and contain both letters and numbers.');
+            return;
         } else if (!PASSWORD_REGEX.test(password)){
             setMessage('Password must be 8-15 characters, include at least one letter and one special character')
+            return;
         }
 
         if (password !== passwordConfirm) {

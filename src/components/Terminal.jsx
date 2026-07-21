@@ -7,7 +7,7 @@ import {
 } from 'react-router';
 
 const SHELL_TYPE_OPTIONS = {
-    speed: 5,
+    speed: 10,
     cursor: false,
 };
 
@@ -83,7 +83,7 @@ function Terminal({user}) {
 
         //ldg0819 결과값
         const newEntry = {
-            id: crypto.randomUUID(),
+            // id: ,
             command: `${username}@myHome:~$ ${value}`,
             output: result.output,
             route: result.route ?? null,

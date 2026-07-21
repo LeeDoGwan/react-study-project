@@ -8,6 +8,7 @@ const commandHandlers = {
                 '  clear  - 터미널 화면 초기화',
                 '  logout - 로그아웃',
                 '  hobby  - 취미',
+                '  whoami - 나는?( ﾉ ﾟｰﾟ)ﾉ',
             ],
         };
     },
